@@ -30,9 +30,10 @@ Edit file `.env` dan sesuaikan dengan koneksi database kamu:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=nama_database
+DB_DATABASE=tutors
 DB_USERNAME=root
 DB_PASSWORD=
+
 ```
 
 > Pastikan database sudah kamu buat sebelumnya.
