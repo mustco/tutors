@@ -5,11 +5,9 @@ Ikuti langkah-langkah berikut untuk meng-clone dan menjalankan project ini secar
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/username/nama-project.git
-cd nama-project
+git clone https://github.com/mustco/tutors.git
+cd tutors
 ```
-
-> Ganti `https://github.com/username/nama-project.git` dengan URL repository kamu.
 
 ### 2. Install Dependency PHP dengan Composer
 
