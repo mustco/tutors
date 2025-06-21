@@ -4,25 +4,25 @@
         <div class="bg-orange-400 text-white p-6 rounded-lg shadow-lg">
             <h3 class="flex items-center gap-2 text-lg font-semibold">
                 <svg class="w-5 h-5"><!-- icon book --></svg>
-                Saldo
+                Total Kelas
             </h3>
-            <p class="text-xl font-bold mt-2">Rp 100.000,00</p>
+            <p class="text-xl font-bold mt-2">{{ $kelas->count() }} Bergabung</p>
         </div>
         <!-- Pemasukan -->
         <div class="bg-green-500 text-white p-6 rounded-lg shadow-lg">
             <h3 class="flex items-center gap-2 text-lg font-semibold">
                 <svg class="w-5 h-5"><!-- icon book --></svg>
-                Pemasukan
+                Tugas
             </h3>
-            <p class="text-xl font-bold mt-2">Rp 10.000,00</p>
+            <p class="text-xl font-bold mt-2">{{ $totalTugas }} Tugas</p>
         </div>
         <!-- Pengeluaran -->
         <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
             <h3 class="flex items-center gap-2 text-lg font-semibold">
                 <svg class="w-5 h-5"><!-- icon truck --></svg>
-                Pengeluaran
+                Notifikasi
             </h3>
-            <p class="text-xl font-bold mt-2">Rp 20.000,00</p>
+            <p class="text-xl font-bold mt-2">0 Notifikasi</p>
         </div>
     </div>
 </x-app-layout>

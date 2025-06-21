@@ -12,7 +12,7 @@
         <nav class="mt-4 flex flex-col">
             <!-- Beranda/Dashboard -->
             <a href="{{ route('dashboard') }}" 
-               class="flex items-center gap-2 px-6 py-3 justify-center
+               class="flex items-center gap-2 px-10 py-3 
                       {{ request()->routeIs('dashboard') ? 'bg-slate-700 border-r-4 border-blue-400' : 'hover:bg-slate-700' }}">
                 <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512">
@@ -24,7 +24,7 @@
 
             <!-- kelas -->
             <a href="{{ route('kelas.index') }}" 
-               class="flex items-center gap-2 px-6 py-3 justify-center
+               class="flex items-center gap-2 px-10 py-3 
                       {{ request()->routeIs('kelas.*') ? 'bg-slate-700 border-r-4 border-blue-400' : 'hover:bg-slate-700' }}">
                 <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512">
@@ -36,7 +36,7 @@
 
             <!-- Notifikasi -->
             <a href="{{ route('notifications.index') }}" 
-               class="flex items-center gap-2 px-6 py-3 justify-center
+               class="flex items-center gap-2 px-10 py-3 
                       {{ request()->routeIs('notifications.*') ? 'bg-slate-700 border-r-4 border-blue-400' : 'hover:bg-slate-700' }}">
                 <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512">

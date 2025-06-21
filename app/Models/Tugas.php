@@ -45,7 +45,7 @@ class Tugas extends Model
     /**
      * Sebuah tugas bisa memiliki banyak pengumpulan tugas.
      */
-    public function pengumpulanTugas()
+    public function pengumpulanMahasiswas()
     {
         return $this->hasMany(PengumpulanTugas::class, 'tugas_id');
     }

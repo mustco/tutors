@@ -15,7 +15,7 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-     
+        // Not typically used for class-specific announcements list
     }
 
     /**
@@ -52,13 +52,15 @@ class PengumumanController extends Controller
 
         Pengumuman::create([
             'kelas_id' => $kelas->id,
-            'user_id' => Auth::id(), 
+            'user_id' => Auth::id(),
             'judul' => $request->judul_pengumuman,
             'konten' => $request->konten_pengumuman,
             'file_path' => $filePath,
         ]);
 
-        return redirect()->route('kelas.show', $kelas->kode_kelas)->with('success', 'Pengumuman berhasil diposting!');
+        // KOREKSI REDIRECT: Arahkan kembali ke halaman 'forum' di kelas tersebut
+        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])
+                         ->with('success', 'Pengumuman berhasil diposting!');
     }
 
     /**
@@ -71,7 +73,7 @@ class PengumumanController extends Controller
     public function show(Kelas $kelas, Pengumuman $pengumuman)
     {
         if ($pengumuman->kelas_id !== $kelas->id) {
-            abort(404); 
+            abort(404);
         }
         return view('pengumuman.show', compact('kelas', 'pengumuman'));
     }
@@ -117,7 +119,7 @@ class PengumumanController extends Controller
             }
             $filePath = $request->file('file_upload')->store('pengumuman_files', 'public');
         } else {
-            $filePath = $pengumuman->file_path; 
+            $filePath = $pengumuman->file_path;
         }
 
         $pengumuman->update([
@@ -126,7 +128,9 @@ class PengumumanController extends Controller
             'file_path' => $filePath,
         ]);
 
-        return redirect()->route('kelas.show', $kelas->kode_kelas)->with('success', 'Pengumuman berhasil diperbarui!');
+        // KOREKSI REDIRECT: Arahkan kembali ke halaman 'forum' di kelas tersebut
+        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])
+                         ->with('success', 'Pengumuman berhasil diperbarui!');
     }
 
     /**
@@ -146,6 +150,8 @@ class PengumumanController extends Controller
         }
         $pengumuman->delete();
 
-        return redirect()->route('kelas.show', $kelas->kode_kelas)->with('success', 'Pengumuman berhasil dihapus!');
+        // KOREKSI REDIRECT: Arahkan kembali ke halaman 'forum' di kelas tersebut
+        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])
+                         ->with('success', 'Pengumuman berhasil dihapus!');
     }
 }
