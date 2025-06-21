@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Tutors') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -28,10 +28,11 @@
           
 
             <!-- Dashboard Content -->
-            <main class="flex-1 p-6 bg-cover bg-center relative"
-                style="background-image: url('{{ asset('images/background.jpg') }}');">
+            <main class="flex-1 p-4 bg-cover bg-center relative bg-gray-100"
+               >
+               <!-- style="background-image: url('{{ asset('images/background.jpg') }}');" -->
                 <!-- Overlay -->
-                <div class="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm"></div>
+                <div class="absolute inset-0 backdrop-blur-sm"></div>
 
                 <div class="relative z-10">
                     {{ $slot }}

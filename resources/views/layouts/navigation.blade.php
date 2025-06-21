@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<aside id="sidebar" class="sticky h-screen top-0 hidden w-64 bg-[#3F4D67] text-white md:flex flex-col justify-between">
+<aside id="sidebar" class="sticky h-screen top-0 hidden w-64 bg-slate-900 border-r text-white md:flex flex-col justify-between">
     <div>
         <div class="flex items-center gap-2 px-6 py-6 text-2xl font-bold justify-center">
             <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
@@ -7,7 +7,7 @@
                 <path
                     d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5l0-377.4c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8L0 454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5l0-370.3c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11L304 456c0 11.4 11.7 19.3 22.4 15.5z" />
             </svg>
-            <span>Admin</span>
+            <span>Tutors</span>
         </div>
         <nav class="mt-4 flex flex-col">
             <!-- Beranda/Dashboard -->
@@ -22,16 +22,16 @@
                 <span class="{{ request()->routeIs('dashboard') ? 'font-semibold' : '' }}">Beranda</span>
             </a>
 
-            <!-- Program -->
-            <a href="{{ route('program.index') }}" 
+            <!-- kelas -->
+            <a href="{{ route('kelas.index') }}" 
                class="flex items-center gap-2 px-6 py-3 justify-center
-                      {{ request()->routeIs('program.*') ? 'bg-slate-700 border-r-4 border-blue-400' : 'hover:bg-slate-700' }}">
+                      {{ request()->routeIs('kelas.*') ? 'bg-slate-700 border-r-4 border-blue-400' : 'hover:bg-slate-700' }}">
                 <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512">
                     <path
                         d="M88.7 223.8L0 375.8 0 96C0 60.7 28.7 32 64 32l117.5 0c17 0 33.3 6.7 45.3 18.7l26.5 26.5c12 12 28.3 18.7 45.3 18.7L416 96c35.3 0 64 28.7 64 64l0 32-336 0c-22.8 0-43.8 12.1-55.3 31.8zm27.6 16.1C122.1 230 132.6 224 144 224l400 0c11.5 0 22 6.1 27.7 16.1s5.7 22.2-.1 32.1l-112 192C453.9 474 443.4 480 432 480L32 480c-11.5 0-22-6.1-27.7-16.1s-5.7-22.2 .1-32.1l112-192z" />
                 </svg>
-                <span class="{{ request()->routeIs('program.*') ? 'font-semibold' : '' }}">Program</span>
+                <span class="{{ request()->routeIs('kelas.*') ? 'font-semibold' : '' }}">Kelas</span>
             </a>
 
             <!-- Notifikasi -->

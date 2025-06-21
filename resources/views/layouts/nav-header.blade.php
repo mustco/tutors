@@ -1,5 +1,5 @@
  <!-- Top Navbar -->
- <header class="bg-white text-black shadow px-6 py-4 flex justify-between md:justify-end items-center">
+ <header class="bg-slate-900 text-white border-b shadow:lg px-6 py-4 flex justify-between md:justify-end items-center">
                 <button onclick="openSidebar()" class="md:hidden font-bold">
                 <i class="fa-solid fa-bars"></i> Menu
                 </button>
