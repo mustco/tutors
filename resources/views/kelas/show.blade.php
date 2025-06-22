@@ -5,6 +5,12 @@
         </h2>
     </x-slot>
 
+    <a href="javascript:history.back()" 
+   class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-white text-gray-700 hover:bg-gray-100 hover:shadow-md transition-all duration-200 ease-in-out cursor-pointer group">
+    <i class="fa-solid fa-arrow-left text-gray-500 transition-transform duration-300 group-hover:-translate-x-1 group-hover:rotate-[-10deg]"></i>
+    <span class="font-medium group-hover:text-gray-900">Kembali</span>
+</a>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden border shadow-sm sm:rounded-lg">
@@ -33,10 +39,10 @@
 
                     {{-- Navigation Buttons --}}
                     <div class="flex border-b pb-2 border-gray-200 space-x-5 mb-6">
-                        <a href="{{ route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum']) }}"
+                        <a href="{{ route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'materi']) }}"
                            class="rounded-md py-2 px-10 text-center font-medium focus:outline-none transition-colors duration-200 cursor-pointer
-                           {{ request()->route('section') === 'forum' || !request()->route('section') ? 'border-2 bg-[#3F4D67] border-gray-600 text-white' : 'border border-gray-600 text-gray-800 hover:text-gray-900 hover:bg-gray-100' }}">
-                            Forum
+                           {{ request()->route('section') === 'materi' || !request()->route('section') ? 'border-2 bg-[#3F4D67] border-gray-600 text-white' : 'border border-gray-600 text-gray-800 hover:text-gray-900 hover:bg-gray-100' }}">
+                            Materi
                         </a>
                         <a href="{{ route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'tugas']) }}"
                            class="rounded-md py-2 px-10 text-center font-medium focus:outline-none transition-colors duration-200 cursor-pointer
@@ -59,8 +65,8 @@
                             {{-- Siswa Content --}}
                             @include('kelas.partials.siswa', ['kelas' => $kelas])
                         @else
-                            {{-- Forum Content (Default) --}}
-                            @include('kelas.partials.forum', ['kelas' => $kelas])
+                            {{-- materi Content (Default) --}}
+                            @include('kelas.partials.materi', ['kelas' => $kelas])
                         @endif
                     </div>
 

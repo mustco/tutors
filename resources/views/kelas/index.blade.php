@@ -5,7 +5,9 @@
         </h2>
     </x-slot>
 
+
     <div class="py-12">
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @if ($kelas->isEmpty())
@@ -87,7 +89,7 @@
                                         @if (Auth::check() && Auth::user()->isAdmin())
                                             <a href="{{ route('kelas.edit', $item->kode_kelas) }}" class="text-yellow-500 text-sm md:text-base text-md py-1 px-2 md:p-2 border rounded-md md:rounded-lg bg-white border-yellow-500 hover:bg-yellow-600 hover:text-white transition duration-150"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         @endif
-                                        <a href="{{ route('kelas.show', $item->kode_kelas) }}" class="text-blue-500 text-sm md:text-base text-md py-1 px-2 md:p-2 border rounded-md md:rounded-lg bg-white border-blue-500 hover:bg-blue-600 hover:text-white transition duration-150"><i class="fa-solid fa-eye"></i> Lihat</a>
+                                        <a href="{{ route('kelas.show.section', $item->kode_kelas) }}" class="text-blue-500 text-sm md:text-base text-md py-1 px-2 md:p-2 border rounded-md md:rounded-lg bg-white border-blue-500 hover:bg-blue-600 hover:text-white transition duration-150"><i class="fa-solid fa-eye"></i> Lihat</a>
                                     </div>
                                 </div>
                             </div>

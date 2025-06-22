@@ -47,14 +47,7 @@
                 <div class="mt-2 flex gap-2">
                     <a href="{{ route('kelas.tugas.show', ['kelas' => $kelas->kode_kelas, 'tugas' => $tugas->id]) }}" class="text-blue-500 hover:underline text-sm">Lihat Detail</a>
                     {{-- Tombol Edit dan Hapus Tugas - Hanya untuk Admin --}}
-                    @if (Auth::check() && Auth::user()->isAdmin())
-                    <a href="{{ route('kelas.tugas.edit', ['kelas' => $kelas->kode_kelas, 'tugas' => $tugas->id]) }}" class="text-yellow-500 hover:underline text-sm">Edit</a>
-                    <form action="{{ route('kelas.tugas.destroy', ['kelas' => $kelas->kode_kelas, 'tugas' => $tugas->id]) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus tugas ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500 hover:underline text-sm">Hapus</button>
-                    </form>
-                    @endif
+                   
                 </div>
             </div>
         @endforeach

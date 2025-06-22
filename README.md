@@ -18,7 +18,7 @@ composer install
 ### 3. Copy File `.env` dan Generate Key
 
 ```bash
-cp .env.example .env
+copy .env.example .env
 php artisan key:generate
 ```
 

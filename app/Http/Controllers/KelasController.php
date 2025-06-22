@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class KelasController extends Controller
 {
@@ -17,9 +18,10 @@ class KelasController extends Controller
         $user = Auth::user();
 
         if ($user->isAdmin()) {
-            // Jika pengguna adalah admin, tampilkan semua kelas
+            // If the user is an admin, show all classes
             $kelas = Kelas::withCount('mahasiswas')->get();
         } else {
+            // If the user is a student, show classes they are enrolled in
             $kelas = $user->kelasAsMahasiswa()->withCount('mahasiswas')->get();
         }
 
@@ -31,7 +33,13 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('kelas.create');
+        $randomCode = Str::random(8);
+
+        while (Kelas::where('kode_kelas', $randomCode)->exists()) {
+            $randomCode = Str::random(8); 
+        }
+
+        return view('kelas.create', compact('randomCode'));
     }
 
     /**
@@ -54,8 +62,8 @@ class KelasController extends Controller
             'admin_id' => Auth::id(),
         ]);
 
-        // KOREKSI REDIRECT: Arahkan ke halaman kelas yang baru dibuat, default ke section 'forum'
-        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])
+        // Redirect to the newly created class's materi section
+        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'materi'])
                          ->with('success', 'Kelas berhasil dibuat!');
     }
 
@@ -66,17 +74,17 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @param  string  $section
      */
-    public function showSection(Request $request, Kelas $kelas, $section = 'forum')
+    public function showSection(Request $request, Kelas $kelas, $section = 'materi')
     {
-        $validSections = ['forum', 'tugas', 'siswa'];
+        $validSections = ['materi', 'tugas', 'siswa'];
 
         if (!in_array($section, $validSections)) {
-            // Jika section tidak valid, arahkan ke section 'forum'
-            return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])
-                             ->with('info', 'Bagian yang diminta tidak valid, menampilkan forum.');
+            // If the section is invalid, redirect to the 'materi' section
+            return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'materi'])
+                             ->with('info', 'Bagian yang diminta tidak valid, menampilkan materi.');
         }
 
-        // Memuat relasi yang diperlukan untuk view
+        // Load necessary relationships for the view
         $kelas->load(['pengumuman', 'tugas', 'mahasiswas']);
 
         return view('kelas.show', compact('kelas', 'section'));
@@ -84,7 +92,7 @@ class KelasController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * Menggunakan Route Model Binding dengan custom key 'kode_kelas'.
+     * Uses Route Model Binding with custom key 'kode_kelas'.
      *
      * @param  \App\Models\Kelas  $kelas
      */
@@ -115,14 +123,14 @@ class KelasController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        // KOREKSI REDIRECT: Arahkan ke halaman kelas yang diperbarui, default ke section 'forum'
-        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])
+        // Redirect to the updated class's materi section
+        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'materi'])
                          ->with('success', 'Kelas berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
-     * Menggunakan Route Model Binding dengan custom key 'kode_kelas'.
+     * Uses Route Model Binding with custom key 'kode_kelas'.
      *
      * @param  \App\Models\Kelas  $kelas
      */
@@ -134,7 +142,7 @@ class KelasController extends Controller
     }
 
     /**
-     * Tambahkan mahasiswa ke kelas menggunakan email.
+     * Add a student to the class using their email.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Kelas  $kelas
@@ -150,25 +158,25 @@ class KelasController extends Controller
 
             if ($mahasiswa) {
                 if ($mahasiswa->role !== 'mahasiswa') {
-                    // KOREKSI REDIRECT: Arahkan kembali ke halaman 'siswa' dengan pesan error
+                    // Redirect back to the 'siswa' section with an error message
                     return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'siswa'])->with('error', 'User ini bukan Mahasiswa. Hanya Mahasiswa yang dapat ditambahkan.');
                 }
                 if (!$kelas->mahasiswas()->where('mahasiswa_id', $mahasiswa->id)->exists()) {
                     $kelas->mahasiswas()->attach($mahasiswa->id, ['bergabung_pada' => now()]);
-                    // KOREKSI REDIRECT: Arahkan kembali ke halaman 'siswa' dengan pesan sukses
+                    // Redirect back to the 'siswa' section with a success message
                     return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'siswa'])->with('success', 'Mahasiswa berhasil ditambahkan!');
                 } else {
-                    // KOREKSI REDIRECT: Arahkan kembali ke halaman 'siswa' dengan pesan error
+                    // Redirect back to the 'siswa' section with an error message
                     return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'siswa'])->with('error', 'Mahasiswa sudah terdaftar di kelas ini.');
                 }
             }
         }
-        // KOREKSI REDIRECT: Arahkan kembali ke halaman 'siswa' dengan pesan info
+        // Redirect back to the 'siswa' section with an info message
         return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'siswa'])->with('info', 'Tidak ada mahasiswa yang ditambahkan secara langsung. Siswa dapat bergabung menggunakan kode kelas ini.');
     }
 
     /**
-     * Keluarkan mahasiswa dari kelas.
+     * Remove a student from the class.
      *
      * @param  \App\Models\Kelas  $kelas
      * @param  \App\Models\User  $mahasiswa
@@ -176,13 +184,13 @@ class KelasController extends Controller
     public function removeMahasiswa(Kelas $kelas, User $mahasiswa)
     {
         if ($mahasiswa->role !== 'mahasiswa') {
-            // KOREKSI REDIRECT: Arahkan kembali ke halaman 'siswa' dengan pesan error
+            // Redirect back to the 'siswa' section with an error message
             return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'siswa'])->with('error', 'User ini bukan Mahasiswa.');
         }
 
         $kelas->mahasiswas()->detach($mahasiswa->id);
 
-        // KOREKSI REDIRECT: Arahkan kembali ke halaman 'siswa' dengan pesan sukses
+        // Redirect back to the 'siswa' section with a success message
         return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'siswa'])->with('success', 'Mahasiswa berhasil dikeluarkan dari kelas.');
     }
 
@@ -202,16 +210,16 @@ class KelasController extends Controller
         $kelas = Kelas::where('kode_kelas', $request->kode_kelas)->first();
         $user = Auth::user();
 
-        // Cek apakah pengguna sudah terdaftar di kelas ini
+        // Check if the user is already enrolled in this class
         if ($kelas->mahasiswas->contains($user->id)) {
-            // KOREKSI REDIRECT: Arahkan ke halaman kelas yang sedang digabungkan, default ke forum
-            return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])->with('info', 'Anda sudah bergabung di kelas ini.');
+            // Redirect to the class's materi section
+            return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'materi'])->with('info', 'Anda sudah bergabung di kelas ini.');
         }
 
-        // Tambahkan pengguna ke kelas
+        // Add the user to the class
         $kelas->mahasiswas()->attach($user->id);
 
-        // KOREKSI REDIRECT: Arahkan ke halaman kelas yang baru digabungkan, default ke forum
-        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'forum'])->with('success', 'Berhasil bergabung dengan kelas!');
+        // Redirect to the newly joined class's materi section
+        return redirect()->route('kelas.show.section', ['kelas' => $kelas->kode_kelas, 'section' => 'materi'])->with('success', 'Berhasil bergabung dengan kelas!');
     }
 }

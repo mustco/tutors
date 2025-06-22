@@ -8,7 +8,7 @@
         @csrf
         <label for="mahasiswa_email" class="block text-sm font-medium text-gray-700">Email Mahasiswa (Opsional):</label>
         <input type="email" name="mahasiswa_email" id="mahasiswa_email" placeholder="contoh: siswa@example.com"
-            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-3">
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-3" required>
         <p class="mt-1 text-sm italic text-gray-500">Atau biarkan siswa bergabung dengan kode kelas.</p>
 
         <div class="flex justify-end items-center mt-4">

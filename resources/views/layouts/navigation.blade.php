@@ -49,7 +49,7 @@
     </div>
     <div class="px-6 py-4">
         <form
-            class="text-red-500 hover:text-red-600 flex items-center gap-2 justify-center border py-2 bg-white rounded-full hover:bg-slate-200"
+            class="text-red-500 hover:text-red-600 flex items-center gap-3 hover:gap-2 justify-center border py-2 bg-white rounded-full hover:bg-slate-300 cursor-pointer transition ease-in-out duration-150"
             method="POST" action="{{ route('logout') }}">
             @csrf
             <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
